@@ -55,7 +55,7 @@ export default function Chat() {
       direction={"column"}
       // justify={"space-between"}
       h={
-        "calc(100vh - var(--app-shell-header-height, 0px) - var(--app-shell-footer-height, 0px))"
+        "calc(100svh - var(--app-shell-header-height, 0px) - var(--app-shell-footer-height, 0px))"
       }
     >
       <Title order={2} c={"red"}>
