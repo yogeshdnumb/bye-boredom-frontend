@@ -18,9 +18,7 @@ export default function Layout() {
         breakpoint: "sm",
         collapsed: { mobile: !mobileOpened, desktop: !desktopOpened },
       }}
-      // padding={0}
-      // padding={"md"}
-      // withBorder={true}
+      // padding={"md"} can have some side effects as the docs says this is a must
     >
       <Header
         toggleMobile={toggleMobile}

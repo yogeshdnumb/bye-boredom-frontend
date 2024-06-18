@@ -25,16 +25,15 @@ export default function Header({
     <AppShell.Header p={"sm"}>
       <Group h={"100%"} justify="space-between">
         <Group gap={"sm"} align="center">
-          <ActionIcon
+          {/* <ActionIcon
             // component="button"
             size={"lg"}
             variant="transparent"
-            onClick={toggleMobile}
             hiddenFrom="sm"
             c={"dark"}
-          >
-            <Burger opened={mobileOpened}></Burger>
-          </ActionIcon>
+          > */}
+          <Burger opened={mobileOpened} onClick={toggleMobile}></Burger>
+          {/* </ActionIcon> */}
           {/* <ActionIcon
             // component="button"
             size={"lg"}

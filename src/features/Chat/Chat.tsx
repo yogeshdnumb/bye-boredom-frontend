@@ -1,21 +1,34 @@
-import { ActionIcon, Flex, Group, TextInput, Title } from "@mantine/core";
+import {
+  ActionIcon,
+  Flex,
+  Group,
+  TextInput,
+  Title,
+  Text,
+  Stack,
+  ScrollArea,
+} from "@mantine/core";
 import { chatsContext } from "@src/contexts/chats.context";
 import { socket } from "@src/utils/socket";
 import { useContext, useState } from "react";
 import { FaPaperPlane } from "react-icons/fa6";
-import { useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import Message from "./components/Message/Message";
+import styles from "./Chat.module.scss";
 
 export default function Chat() {
   const { chatType, chatName } = useParams();
   const location = useLocation();
   const chatId = location.state.chatId;
-  // console.log(location.state);
 
-  // const { currentChatId: chatId } = location.state;
-  // console.log(location);
-
-  // console.log(currentChatId);
+  if (!chatId) {
+    return (
+      <Stack p={"md"}>
+        <Text>Something went wrong</Text>
+        <Link to={"/"}>Click to try again</Link>
+      </Stack>
+    );
+  }
 
   const [message, setMessage] = useState("");
   const { chats, setChats } = useContext(chatsContext);
@@ -62,34 +75,31 @@ export default function Chat() {
         {chatName?.substring(0, 20)}
       </Title>
 
-      {/* <ScrollArea> */}
-      <Flex
-        direction={"column-reverse"}
-        flex={1}
-        style={{ overflowY: "scroll" }}
-      >
-        {/* {messages[roomId]?.messages.map((message, index) => {
-          // console.log(message);
-         
-        })} */}
-        {chats[chatId]?.messages.map((message, index) => {
-          // console.log(chats[chatId]);
+      <ScrollArea flex={1} classNames={{ viewport: styles.viewport }}>
+        <Flex
+          classNames={{ root: styles.messagesContainer }}
+          direction={"column-reverse"}
+        >
+          {chats[chatId]?.messages.map((message, index) => {
+            // console.log(chats[chatId]);
 
-          return (
-            <Message
-              text={message.text}
-              to={`${"/user"}/${message.username}`}
-              username={message.id == socket.id ? "me" : message.username}
-              id={message.id}
-              key={index}
-              isSelf={message.id == socket.id ? true : false}
-            ></Message>
-          );
-        })}
-      </Flex>
-      {/* </ScrollArea> */}
+            return (
+              <Message
+                text={message.text}
+                to={`${"/user"}/${message.username}`}
+                username={message.id == socket.id ? "me" : message.username}
+                id={message.id}
+                key={index}
+                isSelf={message.id == socket.id ? true : false}
+              ></Message>
+            );
+          })}
+        </Flex>
+      </ScrollArea>
       <Group>
         <TextInput
+          // variant="filled"
+          styles={{ input: { borderWidth: "3px" } }}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={(e) => {

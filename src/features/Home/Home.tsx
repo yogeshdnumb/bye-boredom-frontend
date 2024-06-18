@@ -8,10 +8,12 @@ export default function Home() {
   const [username, setUsername] = useState("");
   // const [setIsConnected] = useState(false);
   return (
-    <Stack align="center">
+    <Stack align="center" p={"md"}>
       <Text
         variant="gradient"
-        gradient={{ from: "indigo", to: "red", deg: 90 }}
+        fw={"bold"}
+        fz={"xl"}
+        gradient={{ from: "violet", to: "red", deg: 90 }}
       >
         Choose username
       </Text>
